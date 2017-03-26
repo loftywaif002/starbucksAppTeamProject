@@ -1,4 +1,4 @@
-<img src="https://www.dropbox.com/s/92p6uyljpnbj41t/starbucks-logo.jpeg?dl=0" height="100" width="65">
+<img src="https://drive.google.com/file/d/0B1FYJcEbYoIcN0lZVmhIU0piOVk/view?usp=sharing" height="100" width="65">
 <p align="center">
   <h2 align="center">Team Hackathon Project#Cmpe281 Spring'17</h2>
 </p>
