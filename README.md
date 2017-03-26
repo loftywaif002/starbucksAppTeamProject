@@ -12,9 +12,9 @@
 
 #Technology Used
 
-1. React.js
-2. KongAPI
-3. Aws
-4. Cassandra
-5. MongoDB
+1. <img src="http://i66.tinypic.com/2008av7.png" height="70" width="75">
+2. <img src="http://i68.tinypic.com/2yl74n4.png" height="70" width="75">
+3. <img src="http://i67.tinypic.com/2rpbsba.jpg" height="70" width="75">
+4. <img src="http://i64.tinypic.com/xqm93q.png" height="70" width="75">
+5. <img src="http://i64.tinypic.com/xqm93q.png" height="70" width="75">
 
