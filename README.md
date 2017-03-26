@@ -12,7 +12,7 @@
 
 #Technology Used
 
-<img src="http://i66.tinypic.com/2008av7.png" height="70" width="75" hspace="20" > <img src="http://i68.tinypic.com/2yl74n4.png" height="70" width="75" hspace="20"> <img src="http://i67.tinypic.com/2rpbsba.jpg" height="70" width="75" hspace="20"> <img src="http://i64.tinypic.com/xqm93q.png" height="70" width="75" hspace="20"> <img src="http://i66.tinypic.com/2vkaqe9.png" height="70" width="75" hspace="20">
+<img src="http://i66.tinypic.com/2008av7.png" height="70" width="75" hspace="20" > <img src="http://i68.tinypic.com/2yl74n4.png" height="78" width="75" hspace="20"> <img src="http://i67.tinypic.com/2rpbsba.jpg" height="70" width="75" hspace="20"> <img src="http://i64.tinypic.com/xqm93q.png" height="70" width="75" hspace="20"> <img src="http://i66.tinypic.com/2vkaqe9.png" height="70" width="75" hspace="20">
 
 
 
