@@ -4,7 +4,7 @@ var React = require('react');
 var jsx = require('node-html');
 var app = express();
 
-//jsx.install();
+jsx.install();
 
 
 var Books = require('./public/index.html');
