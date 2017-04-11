@@ -1,58 +1,66 @@
-var express = require('express');
-var browserify = require('browserify');
-var React = require('react');
-var jsx = require('node-html');
-var app = express();
+require('import-export')
+require('babel-core/register')({ presets: ['es2015', 'react'] })
 
-jsx.install();
+const http = require('http')
+const path = require('path')
+const fs = require('fs')
+const express = require('express')
+const react = require('react')
+const reactDomServer = require('react-dom/server')
+const reactRouter = require('react-router')
+
+const renderToString = reactDomServer.renderToString
+const match = reactRouter.match
+const RouterContext = reactRouter.RouterContext
+
+const staticFiles = [
+  '/static/*',
+  '/logo.svg',
+  '/asset-manifest.json',
+  '/favicon.ico'
+]
 
 
-var Books = require('./public/index.html');
+const app = express()
+app.server = http.createServer(app)
+app.use(express.static('../build'))
 
-app.use('/bundle.js', function(req, res) {
-  res.setHeader('content-type', 'application/javascript');
-  browserify('./app.js', {
-    debug: true
+staticFiles.forEach(file => {
+  app.get(file, (req, res) => {
+    const filePath = path.join( __dirname, '../build', req.url )
+    res.sendFile( filePath )
   })
-  .transform('reactify')
-  .bundle()
-  .pipe(res);
-});
+})
 
-app.use('/', function(req, res) {
-  var books = [{
-    title: 'Professional Node.js',
-    read: false
-  }, {
-    title: 'Node.js Patterns',
-    read: false
-  }];
+app.get('*', (req, res) => {
 
-  res.setHeader('Content-Type', 'text/html');
-  res.end(React.renderToStaticMarkup(
-    React.DOM.body(
-      null,
-      React.DOM.div({
-        id: 'container',
-        dangerouslySetInnerHTML: {
-          __html: React.renderToString(React.createElement(Books, {
-            books: books
-          }))
+  const error = () => res.status(404).send('404')
+  const htmlFilePath = path.join( __dirname, '../build', 'index.html' )
+
+  fs.readFile( htmlFilePath, 'utf8', (err, htmlData) => {
+    if(err) {
+      error()
+    }
+    else {
+      match({ routes, location: req.url }, (err, redirect, ssrData) => {
+        if(err) {
+          error()
         }
-      }),
-      React.DOM.script({
-        'id': 'initial-data',
-        'type': 'text/plain',
-        'data-json': JSON.stringify(books)
-      }),
-      React.DOM.script({
-        src: '/bundle.js'
+        else if(redirect) {
+          res.redirect(302, redirect.pathname + redirect.search)
+        }
+        else if(ssrData) {
+          const ReactApp = renderToString( react.createElement(RouterContext, ssrData) )
+          const RenderedApp = htmlData.replace('{{SSR}}', ReactApp)
+          res.status(200).send(RenderedApp)
+        }
+        else {
+          error()
+        }
       })
-    )
-  ));
-});
+    }
+  })
+})
 
-var server = app.listen(3333, function() {
-  var addr = server.address();
-  console.log('Listening @ http://%s:%d', addr.address, addr.port);
-});
+app.server.listen( process.env.PORT || 8080 )
+console.log(`Listening on http://localhost:${app.server.address().port}`)
